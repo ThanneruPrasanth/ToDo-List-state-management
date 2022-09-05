@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Todo } from 'src/app/models/todo';
 import { select, Store } from '@ngrx/store';
 import { pipe } from 'rxjs';
+import { TodoRemove } from 'src/app/actions/todo-action';
 
 @Component({
   selector: 'app-todo',
@@ -11,6 +12,14 @@ import { pipe } from 'rxjs';
 export class TodoComponent implements OnInit {
 
   todos: Todo[];
+
+  removeTodo(index:number){
+    this.store.dispatch(new TodoRemove(index));
+
+  }
+
+
+
   constructor(private store:Store<{todos:Todo[]}>) {
     store.pipe(select('todos')).subscribe((values)=>{
       this.todos=values;
